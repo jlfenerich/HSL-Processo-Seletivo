@@ -1,5 +1,4 @@
-USE HSL_TESTE;
- -- Usando UNPIVOT para transformar os dados mensais em linhas e converter meses em datas (TempObjetivos)
+    -- Definindo o CTE no início da consulta
 WITH DataNormalizada AS (
     SELECT
         EAN,
@@ -27,12 +26,15 @@ WITH DataNormalizada AS (
     UNPIVOT
         (Quantidade FOR Mes IN (JAN, FEV, MAR, ABR, MAI, JUN, JUL, AGO, SET9, OUT10, NOV, DEZ)) AS UnpivotTable
 )
+
+-- Inserindo os dados transformados na tabela OBJETIVO
+INSERT INTO OBJETIVO (CD_PRODUTO, CD_EQUIPE, CD_USUARIO, DT_PERIODO, NR_QUANTIDADE)
 SELECT 
     P.CD_PRODUTO,
     E.CD_EQUIPE,
     U.CD_USUARIO,
     D.DT_PERIODO,
-    D.Quantidade AS NR_QUANTIDADE
+    D.Quantidade
 FROM 
     DataNormalizada D
     LEFT JOIN PRODUTO P ON D.EAN = P.EAN

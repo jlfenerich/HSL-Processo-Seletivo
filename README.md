@@ -36,9 +36,15 @@
 	- [x] Criar DataBase (0_CreateDatabase.sql)  [completion:: 2024-01-28]
 	- [x] Criar Tabelas (1_CreateTable.sql)  [completion:: 2024-01-28]
 	- [x] Inserir Parâmetros (Insert.sql) nas Tabelas  [completion:: 2024-01-28]
-- [ ] Carregar .csv nas Tabelas
-	- [ ] normalizar dos dados
-		- [ ] mapear dados para normalizar
+- [x] Carregar .csv nas Tabelas  [completion:: 2024-01-29]
+	- [x] normalizar dos dados  [completion:: 2024-01-29]
+		- [x] mapear dados para normalizar  [completion:: 2024-01-29]
+		- [x] "Pivotar" tabela BASE_Objetivos de Horizontal p/ Vertical  [completion:: 2024-01-29]
+		- [x] "Pivotar" tabela BASE_Vendas de Horizontal p/ Vertical  [completion:: 2024-01-29]
+		- [x] JOIN para normalização para as chaves  [completion:: 2024-01-29]
+	- [x] Carregar Base para OBJETIVO  [completion:: 2024-01-29]
+	- [x] Carregar Base para VENDA  [completion:: 2024-01-29]
+	- [ ] Consultas do script 3_Perguntas.sql
 ## SCRIPTS: 
 * 0_CreateDatabase.sql
 * 1_CreateTable.sql

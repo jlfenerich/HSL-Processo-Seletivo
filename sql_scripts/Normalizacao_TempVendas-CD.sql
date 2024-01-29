@@ -1,5 +1,5 @@
 USE HSL_TESTE;
- -- Usando UNPIVOT para transformar os dados mensais em linhas e converter meses em datas (TempObjetivos)
+ -- Usando UNPIVOT para transformar os dados mensais em linhas e converter meses em datas (TempVendas)
 WITH DataNormalizada AS (
     SELECT
         EAN,
@@ -23,7 +23,7 @@ WITH DataNormalizada AS (
         END AS DT_PERIODO
     FROM
         (SELECT EAN, EQUIPE, VENDEDOR, JAN, FEV, MAR, ABR, MAI, JUN, JUL, AGO, SET9, OUT10, NOV, DEZ
-         FROM TempObjetivos) AS SourceTable
+         FROM TempVendas) AS SourceTable
     UNPIVOT
         (Quantidade FOR Mes IN (JAN, FEV, MAR, ABR, MAI, JUN, JUL, AGO, SET9, OUT10, NOV, DEZ)) AS UnpivotTable
 )
