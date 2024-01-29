@@ -14,98 +14,85 @@
 * 3_Perguntas.sql
 ## ARQUIVOS
 * BASE_OBJETIVOS.csv
-	* COLUNAS
-		* `EAN`
-		* `EQUIPE`
-		* `VENDEDOR`
-		* `JAN`
-		* `FEV`
-		* `MAR`
-		* `ABR`
-		* `MAI`
-		* `JUN`
-		* `JUL`
-		* `AGO`
-		* `SET`
-		* `OUT`
-		* `NOV`
-		* `DEZ`
+	* `EAN`
+	* `EQUIPE`
+	* `VENDEDOR`
+	* `JAN`
+	* `FEV`
+	* `MAR`
+	* `ABR`
+	* `MAI`
+	* `JUN`
+	* `JUL`
+	* `AGO`
+	* `SET`
+	* `OUT`
+	* `NOV`
+	* `DEZ`
 * BASE_VENDAS.csv
-	* COLUNAS
-		* `EAN`
-		* `EQUIPE`
-		* `VENDEDOR`
-		* `JAN`
-		* `FEV`
-		* `MAR`
-		* `ABR`
-		* `MAI`
-		* `JUN`
-		* `JUL`
-		* `AGO`
-		* `SET`
-		* `OUT`
-		* `NOV`
-		* `DEZ`
+	* `EAN`
+	* `EQUIPE`
+	* `VENDEDOR`
+	* `JAN`
+	* `FEV`
+	* `MAR`
+	* `ABR`
+	* `MAI`
+	* `JUN`
+	* `JUL`
+	* `AGO`
+	* `SET`
+	* `OUT`
+	* `NOV`
+	* `DEZ`
 ## DATABASE
 * `OBJETIVO`
-	* COLUNAS
-		* `CD_VENDA` PRIMARY KEY
-		* `CD_PRODUTO` 
-		* `CD_EQUIPE`
-		* `CD_USUARIO`
-		* `DT_PERIODO`
-		* `NR_QUANTIDADE`
+	* `CD_VENDA` PRIMARY KEY
+	* `CD_PRODUTO` 
+	* `CD_EQUIPE`
+	* `CD_USUARIO`
+	* `DT_PERIODO`
+	* `NR_QUANTIDADE`
 * `VENDA`
-	* COLUNAS
-		* `CD_VENDA` PRIMARY KEY
-		* `CD_PRODUTO`
-		* `CD_EQUIPE`
-		* `CD_USUARIO`
-		* `DT_PERIODO`
-		* `NR_QUANTIDADE`
+	* `CD_VENDA` PRIMARY KEY
+	* `CD_PRODUTO`
+	* `CD_EQUIPE`
+	* `CD_USUARIO`
+	* `DT_PERIODO`
+	* `NR_QUANTIDADE`
 * `PRODUTO`
-	* COLUNAS
-		* `CD_PRODUTO` PRIMARY KEY
-		* `NM_PRODUTO`
-		* `EAN`
+	* `CD_PRODUTO` PRIMARY KEY
+	* `NM_PRODUTO`
+	* `EAN`
 * `EQUIPE`
-	* COLUNAS
-		* `CD_EQUIPE` PRIMARY KEY
-		* `NM_EQUIPE`
-		* `CD_EMPRESA`
+	* `CD_EQUIPE` PRIMARY KEY
+	* `NM_EQUIPE`
+	* `CD_EMPRESA`
 * `EMPRESA`
-	* COLUNAS
-		* `CD_EMPRESA` PRIMARY KEY
-		* `NN_EMPRESA`
+	* `CD_EMPRESA` PRIMARY KEY
+	* `NN_EMPRESA`
 * `USARIO`
-	* COLUNAS
-		* `CD_USUARIO` PRIMARY KEY
-		* `NM_USUARIO`
+	* `CD_USUARIO` PRIMARY KEY
+	* `NM_USUARIO`
 * `EQUIPE_PRODUTO`
-	* COLUNAS
-		* `CD_EQUIPE_PRODUTO` PRIMARY KEY
-		* `CD_EQUIPE`
-		* `CD_PRODUTO`
-		* `NR_PESO`
+	* `CD_EQUIPE_PRODUTO` PRIMARY KEY
+	* `CD_EQUIPE`
+	* `CD_PRODUTO`
+	* `NR_PESO`
 * `EMPRESA_PRODUTO`
-	* COLUNAS
-		* `CD_EMPRESA_PRODUTO` PRIMARY KEY
-		* `CD_EMPRESA`
-		* `CD_PRODUTO`
+	* `CD_EMPRESA_PRODUTO` PRIMARY KEY
+	* `CD_EMPRESA`
+	* `CD_PRODUTO`
 * `EQUIPE_USUARIO`
-	* COLUNAS
-		* `CD_EQUIPE_USUARIO` PRIMARY KEY
-		* `CD_EQUIPE`
-		* `CD_USUARIO`
+	* `CD_EQUIPE_USUARIO` PRIMARY KEY
+	* `CD_EQUIPE`
+	* `CD_USUARIO`
 * `USUARIO_EMPRESA`
-	* COLUNAS
-		* `CD_EMPRESA_USUARIO` 
-		* `CD_EMPRESA`
-		* `CD_USUARIO`
+	* `CD_EMPRESA_USUARIO` 
+	* `CD_EMPRESA`
+	* `CD_USUARIO`
 ## DIAGRAMA
 ![[Diagrama.png]]
-
 ## 3_Perguntas.sql
 
 
