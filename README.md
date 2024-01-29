@@ -97,16 +97,16 @@
 ## DATABASE
 * `OBJETIVO`
 	* `CD_VENDA` PRIMARY KEY
-	* `CD_PRODUTO` 
-	* `CD_EQUIPE`
-	* `CD_USUARIO`
+	* `CD_PRODUTO` FOREIGN KEY
+	* `CD_EQUIPE` FOREIGN KEY
+	* `CD_USUARIO` FOREIGN KEY
 	* `DT_PERIODO`
 	* `NR_QUANTIDADE`
 * `VENDA`
 	* `CD_VENDA` PRIMARY KEY
-	* `CD_PRODUTO`
-	* `CD_EQUIPE`
-	* `CD_USUARIO`
+	* `CD_PRODUTO` FOREIGN KEY
+	* `CD_EQUIPE` FOREIGN KEY
+	* `CD_USUARIO` FOREIGN KEY
 	* `DT_PERIODO`
 	* `NR_QUANTIDADE`
 * `PRODUTO`
@@ -116,7 +116,7 @@
 * `EQUIPE`
 	* `CD_EQUIPE` PRIMARY KEY
 	* `NM_EQUIPE`
-	* `CD_EMPRESA`
+	* `CD_EMPRESA` FOREIGN KEY
 * `EMPRESA`
 	* `CD_EMPRESA` PRIMARY KEY
 	* `NN_EMPRESA`
@@ -125,25 +125,25 @@
 	* `NM_USUARIO`
 * `EQUIPE_PRODUTO`
 	* `CD_EQUIPE_PRODUTO` PRIMARY KEY
-	* `CD_EQUIPE`
-	* `CD_PRODUTO`
+	* `CD_EQUIPE` FOREIGN KEY
+	* `CD_PRODUTO` FOREIGN KEY
 	* `NR_PESO`
 * `EMPRESA_PRODUTO`
 	* `CD_EMPRESA_PRODUTO` PRIMARY KEY
-	* `CD_EMPRESA`
-	* `CD_PRODUTO`
+	* `CD_EMPRESA` FOREIGN KEY
+	* `CD_PRODUTO` FOREIGN KEY
 * `EQUIPE_USUARIO`
 	* `CD_EQUIPE_USUARIO` PRIMARY KEY
-	* `CD_EQUIPE`
-	* `CD_USUARIO`
+	* `CD_EQUIPE` FOREIGN KEY
+	* `CD_USUARIO` FOREIGN KEY
 * `USUARIO_EMPRESA`
-	* `CD_EMPRESA_USUARIO` 
-	* `CD_EMPRESA`
-	* `CD_USUARIO`
+	* `CD_EMPRESA_USUARIO` PRIMARY KEY
+	* `CD_EMPRESA` FOREIGN KEY
+	* `CD_USUARIO` FOREIGN KEY
 ## DIAGRAMA
 ![Diagrama](https://github.com/jlfenerich/HSL-Processo-Seletivo/blob/main/docs/Diagrama.png?raw=true)
 
-## 3_Perguntas.sql
+## Perguntas (3_Perguntas.sql)
 
 
 1) Retornar as informações de "Nome da empresa", "Nome da equipe", "Nome do usuário" e "Qtd de Produtos" associados ao usuário em sua respectiva equipe, filtrando apenas os produtos com peso maior que 10% e ordenando as informações por "Equipe" e "Usuário".
