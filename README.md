@@ -124,7 +124,7 @@
 	* `CD_EMPRESA` FOREIGN KEY
 	* `CD_USUARIO` FOREIGN KEY
 ## DIAGRAMA
-![Diagrama](https://github.com/jlfenerich/HSL-Processo-Seletivo/blob/main/docs/master%20-%20HSL_TESTE%20-%20dbo.png?raw=true)
+![Diagrama](https://github.com/jlfenerich/HSL-Processo-Seletivo/blob/main/docs/Diagrama.png?raw=true)
 
 ## Perguntas (3_Perguntas.sql)
 
