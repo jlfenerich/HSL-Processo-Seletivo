@@ -1,3 +1,4 @@
+# File Structure
 
 ```nohighlight
 ├── LICENSE
@@ -25,7 +26,6 @@
 ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
 │                         generated with `pip freeze > requirements.txt`
 │
-├── setup.py           <- Make this project pip installable with `pip install -e`
 │
 ```
 
