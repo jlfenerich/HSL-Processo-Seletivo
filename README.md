@@ -1,4 +1,4 @@
-# File Structure
+# Repo Structure
 
 ```nohighlight
 ├── LICENSE
@@ -38,7 +38,7 @@
 	- [x] Inserir Parâmetros (Insert.sql) nas Tabelas  [completion:: 2024-01-28]
 - [ ] Carregar .csv nas Tabelas
 	- [ ] normalizar dos dados
-		- [ ] 
+		- [ ] mapear dados para normalizar
 ## SCRIPTS: 
 * 0_CreateDatabase.sql
 * 1_CreateTable.sql
