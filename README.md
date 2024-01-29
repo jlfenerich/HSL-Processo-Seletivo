@@ -1,4 +1,12 @@
 # PSEUDO CÓDIGO:
+- [x] Configurar um servidor local SQL Server  [completion:: 2024-01-28]
+- [x] Com os scripts fornecidos:  [completion:: 2024-01-28]
+	- [x] Criar DataBase (0_CreateDatabase.sql)  [completion:: 2024-01-28]
+	- [x] Criar Tabelas (1_CreateTable.sql)  [completion:: 2024-01-28]
+	- [x] Inserir Parâmetros (Insert.sql) nas Tabelas  [completion:: 2024-01-28]
+- [ ] Carregar .csv nas Tabelas
+	- [ ] normalizar dos dados
+		- [ ] 
 ## SCRIPTS: 
 * 0_CreateDatabase.sql
 * 1_CreateTable.sql
@@ -6,7 +14,39 @@
 * 3_Perguntas.sql
 ## ARQUIVOS
 * BASE_OBJETIVOS.csv
+	* COLUNAS
+		* `EAN`
+		* `EQUIPE`
+		* `VENDEDOR`
+		* `JAN`
+		* `FEV`
+		* `MAR`
+		* `ABR`
+		* `MAI`
+		* `JUN`
+		* `JUL`
+		* `AGO`
+		* `SET`
+		* `OUT`
+		* `NOV`
+		* `DEZ`
 * BASE_VENDAS.csv
+	* COLUNAS
+		* `EAN`
+		* `EQUIPE`
+		* `VENDEDOR`
+		* `JAN`
+		* `FEV`
+		* `MAR`
+		* `ABR`
+		* `MAI`
+		* `JUN`
+		* `JUL`
+		* `AGO`
+		* `SET`
+		* `OUT`
+		* `NOV`
+		* `DEZ`
 ## DATABASE
 * `OBJETIVO`
 	* COLUNAS
@@ -63,7 +103,7 @@
 		* `CD_EMPRESA_USUARIO` 
 		* `CD_EMPRESA`
 		* `CD_USUARIO`
-
+## DIAGRAMA
 ![[Diagrama.png]]
 
 ## 3_Perguntas.sql
