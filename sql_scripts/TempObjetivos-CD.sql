@@ -1,0 +1,21 @@
+USE HSL_TESTE;
+SELECT 
+    P.CD_PRODUTO,
+    E.CD_EQUIPE,
+    U.CD_USUARIO,
+    T.JAN,
+    T.FEV,
+    T.MAR,
+    T.ABR,
+    T.MAI,
+    T.JUN,
+    T.JUL,
+    T.AGO,
+    T.SET9,
+    T.OUT10,
+    T.NOV,
+    T.DEZ 
+FROM TempObjetivos T
+    LEFT JOIN PRODUTO P ON T.EAN = P.EAN
+    LEFT JOIN EQUIPE E ON T.EQUIPE = E.NM_EQUIPE
+    LEFT JOIN USUARIO U ON T.VENDEDOR = U.NM_USUARIO;
