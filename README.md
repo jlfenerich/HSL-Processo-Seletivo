@@ -11,14 +11,14 @@
 * `OBJETIVO`
 	* COLUNAS
 		* `CD_VENDA` PRIMARY KEY
-		* `CD_PRODUTO`
+		* `CD_PRODUTO` 
 		* `CD_EQUIPE`
 		* `CD_USUARIO`
 		* `DT_PERIODO`
 		* `NR_QUANTIDADE`
 * `VENDA`
 	* COLUNAS
-		* `CD_VENDA`
+		* `CD_VENDA` PRIMARY KEY
 		* `CD_PRODUTO`
 		* `CD_EQUIPE`
 		* `CD_USUARIO`
@@ -26,44 +26,43 @@
 		* `NR_QUANTIDADE`
 * `PRODUTO`
 	* COLUNAS
-		* `CD_PRODUTO`
+		* `CD_PRODUTO` PRIMARY KEY
 		* `NM_PRODUTO`
 		* `EAN`
 * `EQUIPE`
 	* COLUNAS
-		* `CD_EQUIPE`
+		* `CD_EQUIPE` PRIMARY KEY
 		* `NM_EQUIPE`
 		* `CD_EMPRESA`
 * `EMPRESA`
 	* COLUNAS
-		* `CD_EMPRESA`
+		* `CD_EMPRESA` PRIMARY KEY
 		* `NN_EMPRESA`
 * `USARIO`
 	* COLUNAS
-		* `CD_USUARIO`
+		* `CD_USUARIO` PRIMARY KEY
 		* `NM_USUARIO`
 * `EQUIPE_PRODUTO`
 	* COLUNAS
-		* `CD_EQUIPE_PRODUTO`
+		* `CD_EQUIPE_PRODUTO` PRIMARY KEY
 		* `CD_EQUIPE`
 		* `CD_PRODUTO`
 		* `NR_PESO`
 * `EMPRESA_PRODUTO`
 	* COLUNAS
-		* `CD_EMPRESA_PRODUTO`
+		* `CD_EMPRESA_PRODUTO` PRIMARY KEY
 		* `CD_EMPRESA`
 		* `CD_PRODUTO`
 * `EQUIPE_USUARIO`
 	* COLUNAS
-		* `CD_EQUIPE_USUARIO`
+		* `CD_EQUIPE_USUARIO` PRIMARY KEY
 		* `CD_EQUIPE`
 		* `CD_USUARIO`
 * `USUARIO_EMPRESA`
 	* COLUNAS
-		* `CD_EMPRESA_USUARIO`
+		* `CD_EMPRESA_USUARIO` 
 		* `CD_EMPRESA`
 		* `CD_USUARIO`
-
 ## 3_Perguntas.sql
 
 1) Retornar as informações de "Nome da empresa", "Nome da equipe", "Nome do usuário" e "Qtd de Produtos" associados ao usuário em sua respectiva equipe, filtrando apenas os produtos com peso maior que 10% e ordenando as informações por "Equipe" e "Usuário".
@@ -89,3 +88,4 @@
 11) Retornar o "Nome do usuário" que foi o pior vendedor (em quantidade vendida) de Nimesulida no primeiro trimestre do ano, considerando todos os times da empresa Labmais.
 
 12) Retornar o "Nome do usuário" que foi o melhor (cobertura) vendedor de Meloxicam neste ano, considerando todos os times da empresa ALPHALAB.
+
