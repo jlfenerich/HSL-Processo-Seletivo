@@ -141,7 +141,7 @@
 	* `CD_EMPRESA`
 	* `CD_USUARIO`
 ## DIAGRAMA
-![Diagrama](https://github.com/jlfenerich/HSL-Processo-Seletivo/blob/main/Diagrama.png?raw=true)
+![Diagrama](https://github.com/jlfenerich/HSL-Processo-Seletivo/blob/main/docs/Diagrama.png?raw=true)
 
 ## 3_Perguntas.sql
 
