@@ -3,9 +3,57 @@ GO
 
 -- 1) Retornar as informações de "Nome da empresa", "Nome da equipe", "Nome do usuário" e "Qtd de Produtos" associados ao usuário em sua respectiva equipe, 
 -- filtrando apenas os produtos com peso maior que 10% e ordenando as informações por "Equipe" e "Usuário".
+USE HSL_TESTE
+SELECT 
+    E.NM_EMPRESA AS 'Nome da Empresa',
+    T.NM_EQUIPE AS 'Nome da Equipe',
+    U.NM_USUARIO AS 'Nome do Usuário',
+    COUNT(P.CD_PRODUTO) AS 'Qtd de Produtos'
+FROM 
+    USUARIO U
+    JOIN EQUIPE_USUARIO EU ON U.CD_USUARIO = EU.CD_USUARIO
+    JOIN EQUIPE T ON EU.CD_EQUIPE = T.CD_EQUIPE
+    JOIN EMPRESA E ON T.CD_EMPRESA = E.CD_EMPRESA
+    JOIN EQUIPE_PRODUTO EP ON T.CD_EQUIPE = EP.CD_EQUIPE
+    JOIN PRODUTO P ON EP.CD_PRODUTO = P.CD_PRODUTO
+WHERE 
+    EP.NR_PESO > 0.10  -- peso maior que 10%
+GROUP BY 
+    E.NM_EMPRESA, T.NM_EQUIPE, U.NM_USUARIO
+ORDER BY 
+    T.NM_EQUIPE, U.NM_USUARIO;
 
 -- 2) Retornar o "Nome da equipe" e "Nome do produto" e a "Qtd de Produtos vendidos", porém apenas dos produtos mais vendidos em cada uma das equipes
+USE HSL_TESTE;
 
+WITH VendasPorProduto AS (
+    SELECT 
+        EP.CD_EQUIPE,
+        EP.CD_PRODUTO,
+        COUNT(*) AS QtdVendida
+    FROM 
+        VENDA V
+        JOIN EQUIPE_PRODUTO EP ON V.CD_PRODUTO = EP.CD_PRODUTO
+    GROUP BY 
+        EP.CD_EQUIPE, EP.CD_PRODUTO
+), MaxVendasPorEquipe AS (
+    SELECT 
+        CD_EQUIPE,
+        MAX(QtdVendida) AS MaxVendas
+    FROM 
+        VendasPorProduto
+    GROUP BY 
+        CD_EQUIPE
+)
+SELECT 
+    E.Nm_EQUIPE AS 'Nome da Equipe',
+    P.Nm_PRODUTO AS 'Nome do Produto',
+    VP.QtdVendida AS 'Qtd de Produtos Vendidos'
+FROM 
+    MaxVendasPorEquipe MV
+    JOIN VendasPorProduto VP ON MV.CD_EQUIPE = VP.CD_EQUIPE AND MV.MaxVendas = VP.QtdVendida
+    JOIN EQUIPE E ON VP.CD_EQUIPE = E.CD_EQUIPE
+    JOIN PRODUTO P ON VP.CD_PRODUTO = P.CD_PRODUTO;
 -- 3) Retornar o "Nome da equipe", "Nome do produto", "Nome do usuário", "Qtd de Produtos vendidos" e o "Ranking" considerando quantidade de produtos vendidos apenas 
 -- no 1º semestre (Janeiro a Junho)
 
