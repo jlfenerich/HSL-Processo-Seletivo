@@ -63,7 +63,11 @@
 		* `CD_EMPRESA_USUARIO` 
 		* `CD_EMPRESA`
 		* `CD_USUARIO`
+
+![[Diagrama.png]]
+
 ## 3_Perguntas.sql
+
 
 1) Retornar as informações de "Nome da empresa", "Nome da equipe", "Nome do usuário" e "Qtd de Produtos" associados ao usuário em sua respectiva equipe, filtrando apenas os produtos com peso maior que 10% e ordenando as informações por "Equipe" e "Usuário".
 
