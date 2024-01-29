@@ -14,8 +14,13 @@
 │
 ├── references                  <- Data dictionaries, manuals, and all other explanatory materials.
 │
-├── sql_scripts                 <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── 0_CreateDatabase.sql    <- Generated graphics and figures to be used in reporting
+├── sql_scripts 
+│   ├── 0_CreateDatabase.sql    <- Generated analysis as HTML, PDF, LaTeX, etc.
+│   ├── 1_CreateTable.sql    
+│   ├── 2_Insert.sql    
+│   ├── 3_Perguntas.sql
+│   ├── InsertCSVtoTempTABLE.sql
+│   └── TempObjetivos-CD.sql         <- Generated graphics and figures to be used in reporting
 │
 ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
 │                         generated with `pip freeze > requirements.txt`
