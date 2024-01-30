@@ -44,45 +44,54 @@
 - [ ] Documentação
 - [ ] Revisão da Documentação
 - [ ] Enviar para recrutador
-## SCRIPTS: 
-* 0_CreateDatabase.sql
-* 1_CreateTable.sql
-* 2_Insert.sql
-* 3_Perguntas.sql
-## ARQUIVOS
-* BASE_OBJETIVOS.csv
-	* `EAN`
-	* `EQUIPE`
-	* `VENDEDOR`
-	* `JAN`
-	* `FEV`
-	* `MAR`
-	* `ABR`
-	* `MAI`
-	* `JUN`
-	* `JUL`
-	* `AGO`
-	* `SET`
-	* `OUT`
-	* `NOV`
-	* `DEZ`
-* BASE_VENDAS.csv
-	* `EAN`
-	* `EQUIPE`
-	* `VENDEDOR`
-	* `JAN`
-	* `FEV`
-	* `MAR`
-	* `ABR`
-	* `MAI`
-	* `JUN`
-	* `JUL`
-	* `AGO`
-	* `SET`
-	* `OUT`
-	* `NOV`
-	* `DEZ`
-## DATABASE
+<details>
+  <summary>SCRIPTS</summary>
+
+  * 0_CreateDatabase.sql
+  * 1_CreateTable.sql
+  * 2_Insert.sql
+  * 3_Perguntas.sql
+</details>
+
+<details>
+  <summary>ARQUIVOS</summary>
+
+  * BASE_OBJETIVOS.csv
+    * `EAN`
+    * `EQUIPE`
+    * `VENDEDOR`
+    * `JAN`
+    * `FEV`
+    * `MAR`
+    * `ABR`
+    * `MAI`
+    * `JUN`
+    * `JUL`
+    * `AGO`
+    * `SET`
+    * `OUT`
+    * `NOV`
+    * `DEZ`
+  * BASE_VENDAS.csv
+    * `EAN`
+    * `EQUIPE`
+    * `VENDEDOR`
+    * `JAN`
+    * `FEV`
+    * `MAR`
+    * `ABR`
+    * `MAI`
+    * `JUN`
+    * `JUL`
+    * `AGO`
+    * `SET`
+    * `OUT`
+    * `NOV`
+    * `DEZ`
+</details>
+
+<details>
+  <summary>DATABASE</summary>
 * `OBJETIVO`
 	* `CD_VENDA` PRIMARY KEY
 	* `CD_PRODUTO` FOREIGN KEY
@@ -128,6 +137,8 @@
 	* `CD_EMPRESA_USUARIO` PRIMARY KEY
 	* `CD_EMPRESA` FOREIGN KEY
 	* `CD_USUARIO` FOREIGN KEY
+</details>
+
 ## DIAGRAMA
 ![Diagrama](https://github.com/jlfenerich/HSL-Processo-Seletivo/blob/main/docs/master%20-%20HSL_TESTE%20-%20dbo.png?raw=true)
 
@@ -161,50 +172,3 @@
 # references
 
 https://drivendata.github.io/cookiecutter-data-science/
-
-
-<details>
-  <summary>ARQUIVOS</summary>
-
-  * BASE_OBJETIVOS.csv
-    * `EAN`
-    * `EQUIPE`
-    * `VENDEDOR`
-    * `JAN`
-    * `FEV`
-    * `MAR`
-    * `ABR`
-    * `MAI`
-    * `JUN`
-    * `JUL`
-    * `AGO`
-    * `SET`
-    * `OUT`
-    * `NOV`
-    * `DEZ`
-  * BASE_VENDAS.csv
-    * `EAN`
-    * `EQUIPE`
-    * `VENDEDOR`
-    * `JAN`
-    * `FEV`
-    * `MAR`
-    * `ABR`
-    * `MAI`
-    * `JUN`
-    * `JUL`
-    * `AGO`
-    * `SET`
-    * `OUT`
-    * `NOV`
-    * `DEZ`
-</details>
-
-<details>
-  <summary>SCRIPTS</summary>
-
-  * 0_CreateDatabase.sql
-  * 1_CreateTable.sql
-  * 2_Insert.sql
-  * 3_Perguntas.sql
-</details>
