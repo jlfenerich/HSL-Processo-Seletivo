@@ -76,9 +76,9 @@ WITH VendasSemestre AS (
         EP.CD_EQUIPE, V.CD_PRODUTO, V.CD_USUARIO
 )
 SELECT 
-    E.Nm_EQUIPE AS 'Nome da Equipe',
-    P.Nm_PRODUTO AS 'Nome do Produto',
-    U.Nm_USUARIO AS 'Nome do Usuário',
+    E.NM_EQUIPE AS 'Nome da Equipe',
+    P.NM_PRODUTO AS 'Nome do Produto',
+    U.NM_USUARIO AS 'Nome do Usuário',
     VS.QtdVendida AS 'Qtd de Produtos Vendidos',
     VS.Ranking
 FROM 
@@ -180,12 +180,110 @@ ORDER BY
 
 -- 6) Retornar a lista "Nome do usuário", "Unidades de Produtos vendidos", "Objetivo", e o percentual do atingimento do objetivo no mês de Maio, para o produto 
 -- Bactrim e ordenado pela performance em ordem decrescente
+USE HSL_TESTE;
+
+SELECT 
+    U.NM_USUARIO AS 'Nome do Usuário',
+    SUM(V.NR_QUANTIDADE) AS 'Unidades de Produtos Vendidos',
+    SUM(O.NR_QUANTIDADE) AS 'Objetivo',
+    CASE 
+        WHEN SUM(O.NR_QUANTIDADE) = 0 THEN 0 
+        ELSE CAST(SUM(V.NR_QUANTIDADE) AS FLOAT) / SUM(O.NR_QUANTIDADE) * 100 
+    END AS 'Percentual de Atingimento do Objetivo'
+FROM 
+    VENDA V
+    JOIN OBJETIVO O ON V.CD_PRODUTO = O.CD_PRODUTO AND V.CD_USUARIO = O.CD_USUARIO
+    JOIN PRODUTO P ON V.CD_PRODUTO = P.CD_PRODUTO
+    JOIN USUARIO U ON V.CD_USUARIO = U.CD_USUARIO
+WHERE 
+    P.NM_PRODUTO = 'Bactrim'
+    AND MONTH(V.DT_PERIODO) = 5  -- Maio
+    AND MONTH(O.DT_PERIODO) = 5
+GROUP BY 
+    U.NM_USUARIO
+ORDER BY 
+    'Percentual de Atingimento do Objetivo' DESC;
 
 -- 7) Retornar a relação dos produtos, a quantidade vendida de cada um deles e sua representatividade dentro do total de vendas para a 
 -- usuária "Yasmin", ordenada pela representatividade decrescente
+USE HSL_TESTE;
 
+WITH TotalVendasYasmin AS (
+    SELECT 
+        SUM(V.NR_QUANTIDADE) AS TotalVendido
+    FROM 
+        VENDA V
+        JOIN USUARIO U ON V.CD_USUARIO = U.CD_USUARIO
+    WHERE 
+        U.NM_USUARIO = 'Yasmin'
+),
+VendasPorProduto AS (
+    SELECT 
+        P.NM_PRODUTO,
+        SUM(V.NR_QUANTIDADE) AS QtdVendida
+    FROM 
+        VENDA V
+        JOIN PRODUTO P ON V.CD_PRODUTO = P.CD_PRODUTO
+        JOIN USUARIO U ON V.CD_USUARIO = U.CD_USUARIO
+    WHERE 
+        U.NM_USUARIO = 'Yasmin'
+    GROUP BY 
+        P.NM_PRODUTO
+)
+SELECT 
+    VP.NM_PRODUTO AS 'Nome do Produto',
+    VP.QtdVendida AS 'Quantidade Vendida',
+    CAST((CAST(VP.QtdVendida AS FLOAT) / TV.TotalVendido * 100) AS DECIMAL(10, 2)) AS 'Representatividade (%)'
+FROM 
+    VendasPorProduto VP
+    CROSS JOIN TotalVendasYasmin TV
+ORDER BY 
+    'Representatividade (%)' DESC;
 -- 8) Retornar "Nome do usuário", "Nome do produto", a quantidade vendida no segundo trimestre, a quantidade vendida no terceiro trimestre e o crescimento do segundo para o 
 -- terceiro trimestre em percentual, apenas daqueles com o Maior e o Menor crescimento
+USE HSL_TESTE;
+
+WITH VendasPorTrimestre AS (
+    SELECT
+        U.NM_USUARIO,
+        P.NM_PRODUTO,
+        SUM(CASE WHEN MONTH(V.DT_PERIODO) IN (4, 5, 6) THEN V.NR_QUANTIDADE ELSE 0 END) AS VendasQ2,
+        SUM(CASE WHEN MONTH(V.DT_PERIODO) IN (7, 8, 9) THEN V.NR_QUANTIDADE ELSE 0 END) AS VendasQ3
+    FROM
+        VENDA V
+        JOIN USUARIO U ON V.CD_USUARIO = U.CD_USUARIO
+        JOIN PRODUTO P ON V.CD_PRODUTO = P.CD_PRODUTO
+    GROUP BY
+        U.NM_USUARIO, P.NM_PRODUTO
+),
+Crescimento AS (
+    SELECT
+        *,
+        CASE 
+            WHEN VendasQ2 = 0 THEN NULL
+            ELSE CAST((VendasQ3 - VendasQ2) AS FLOAT) / VendasQ2 * 100 
+        END AS CrescimentoPercentual
+    FROM VendasPorTrimestre
+),
+RankingCrescimento AS (
+    SELECT
+        *,
+        RANK() OVER (ORDER BY CrescimentoPercentual DESC) AS RankCresc,
+        RANK() OVER (ORDER BY CrescimentoPercentual ASC) AS RankDecresc
+    FROM Crescimento
+)
+SELECT 
+    NM_USUARIO,
+    NM_PRODUTO,
+    VendasQ2,
+    VendasQ3,
+    CrescimentoPercentual
+FROM 
+    RankingCrescimento
+WHERE 
+    RankCresc = 1 OR RankDecresc = 1
+ORDER BY 
+    CrescimentoPercentual DESC;
 
 -- 9) Retornar uma lista de performance/cobertura (onde performance = Venda / Objetivo) de "Nome do usuário", 
 -- "Nome do produto" de todos os meses disponíveis e "Ano", onde a cobertura de cada mês, deve estar por cada coluna.
@@ -198,6 +296,61 @@ NR_ANO NM_USUARIO NM_PRODUTO JANEIRO FEVEREIRO MARÇO ABRIL MAIO JUNHO JULHO AGO
 2023 André abcler-abnat 96,89 94,44 120 118,73 87,68 95,7 118,99 94,21 99,13 96,12 135,85 118,13
 2023 André Azitromicina 109,8 130,77 91,42 135,21 122,16 128,03 82,64 94,18 93,88 100 109,38 83,73
 */
+USE HSL_TESTE;
+
+WITH CoberturaDados AS (
+    SELECT
+        YEAR(V.DT_PERIODO) AS NR_ANO,
+        U.NM_USUARIO,
+        P.NM_PRODUTO,
+        MONTH(V.DT_PERIODO) AS Mes,
+        CASE 
+            WHEN SUM(O.NR_QUANTIDADE) = 0 THEN 0
+            ELSE CAST(SUM(V.NR_QUANTIDADE) AS FLOAT) / SUM(O.NR_QUANTIDADE) * 100
+        END AS Cobertura
+    FROM
+        VENDA V
+        JOIN OBJETIVO O ON V.CD_PRODUTO = O.CD_PRODUTO AND V.CD_USUARIO = O.CD_USUARIO
+        JOIN PRODUTO P ON V.CD_PRODUTO = P.CD_PRODUTO
+        JOIN USUARIO U ON V.CD_USUARIO = U.CD_USUARIO
+        JOIN EQUIPE_USUARIO EU ON U.CD_USUARIO = EU.CD_USUARIO
+        JOIN EQUIPE E ON EU.CD_EQUIPE = E.CD_EQUIPE
+    WHERE
+        E.Nm_EQUIPE = 'Vendas'
+    GROUP BY
+        YEAR(V.DT_PERIODO),
+        U.NM_USUARIO,
+        P.NM_PRODUTO,
+        MONTH(V.DT_PERIODO)
+),
+CoberturaPivot AS (
+    SELECT *
+    FROM CoberturaDados
+    PIVOT (
+        AVG(Cobertura)
+        FOR Mes IN ([1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12])
+    ) AS PivotTable
+)
+SELECT 
+    NR_ANO,
+    Nm_USUARIO,
+    Nm_PRODUTO,
+    CAST([1] AS DECIMAL(10, 2)) AS 'Janeiro',
+    CAST([2] AS DECIMAL(10, 2)) AS 'Fevereiro',
+    CAST([3] AS DECIMAL(10, 2)) AS 'Março',
+    CAST([4] AS DECIMAL(10, 2)) AS 'Abril',
+    CAST([5] AS DECIMAL(10, 2)) AS 'Maio',
+    CAST([6] AS DECIMAL(10, 2)) AS 'Junho',
+    CAST([7] AS DECIMAL(10, 2)) AS 'Julho',
+    CAST([8] AS DECIMAL(10, 2)) AS 'Agosto',
+    CAST([9] AS DECIMAL(10, 2)) AS 'Setembro',
+    CAST([10] AS DECIMAL(10, 2)) AS 'Outubro',
+    CAST([11] AS DECIMAL(10, 2)) AS 'Novembro',
+    CAST([12] AS DECIMAL(10, 2)) AS 'Dezembro'
+FROM 
+    CoberturaPivot
+ORDER BY 
+    NR_ANO, NM_USUARIO, NM_PRODUTO;
 
 -- 10) Quem foi o melhor (em quantidade vendida) vendedor de Paracetamol no último trimestre do ano, considerando
 -- todos os times da empresa ALPHALAB?
