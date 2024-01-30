@@ -92,6 +92,7 @@
 
 <details>
   <summary>DATABASE</summary>
+  
 * `OBJETIVO`
 	* `CD_VENDA` PRIMARY KEY
 	* `CD_PRODUTO` FOREIGN KEY
