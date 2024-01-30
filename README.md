@@ -25,7 +25,9 @@
 │
 ```
 
-# To Do:
+<details>
+  <summary>To do</summary>
+
 - [x] Configurar um servidor local SQL Server  [completion:: 2024-01-28]
 - [x] Com os scripts fornecidos:  [completion:: 2024-01-28]
 	- [x] Criar DataBase (0_CreateDatabase.sql)  [completion:: 2024-01-28]
@@ -44,6 +46,7 @@
 - [ ] Documentação
 - [ ] Revisão da Documentação
 - [ ] Enviar para recrutador
+</details>
 
 # Files Stucture
 <details>
