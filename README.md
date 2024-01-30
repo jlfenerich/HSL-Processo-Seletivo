@@ -45,7 +45,7 @@ Segue-se a etapa de normalização, onde os dados importados são reestruturados
 
 Este repositório detalha cada passo do processo, desde a importação inicial dos dados até a sua completa normalização, oferecendo insights valiosos sobre práticas efetivas de manipulação de dados em SQL para situações semelhantes.
 
-# Files Stucture
+## Files Stucture
 <details>
   <summary>SCRIPTS</summary>
 
