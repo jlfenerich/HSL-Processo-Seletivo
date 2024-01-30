@@ -131,6 +131,52 @@ ORDER BY
 -- 5) Como foi possível verificar até aqui, temos informações de Objetivo e Vendas para cada Equipe, Usuário e Produto e agora precisamos retornar as informações abaixo:
 -- "Mês", "Nome da equipe", "Nome do usuário", "Nome do produto", "Objetivo", "Venda" e a "Cobertura de atingimento da venda (que é a venda/objetivo)", porém gostaríamos de 
 -- retornar somente os menores atingimentos de cobertura para cada um dos meses do ano.
+USE HSL_TESTE;
+
+WITH CoberturaPorMes AS (
+    SELECT
+        MONTH(V.DT_PERIODO) AS Mes,
+        E.NM_EQUIPE,
+        U.NM_USUARIO,
+        P.NM_PRODUTO,
+        SUM(O.NR_QUANTIDADE) AS Objetivo,
+        SUM(V.NR_QUANTIDADE) AS Venda,
+        CASE 
+            WHEN SUM(O.NR_QUANTIDADE) = 0 THEN 0
+            ELSE CAST(SUM(V.NR_QUANTIDADE) AS FLOAT) / SUM(O.NR_QUANTIDADE)
+        END AS Cobertura
+    FROM
+        VENDA V
+        JOIN OBJETIVO O ON V.CD_PRODUTO = O.CD_PRODUTO AND V.CD_USUARIO = O.CD_USUARIO AND MONTH(V.DT_PERIODO) = MONTH(O.DT_PERIODO)
+        JOIN EQUIPE_PRODUTO EP ON V.CD_PRODUTO = EP.CD_PRODUTO
+        JOIN EQUIPE E ON EP.CD_EQUIPE = E.CD_EQUIPE
+        JOIN PRODUTO P ON V.CD_PRODUTO = P.CD_PRODUTO
+        JOIN USUARIO U ON V.CD_USUARIO = U.CD_USUARIO
+    GROUP BY
+        MONTH(V.DT_PERIODO),
+        E.NM_EQUIPE,
+        U.NM_USUARIO,
+        P.NM_PRODUTO
+),
+RankingPorMes AS (
+    SELECT *,
+        RANK() OVER (PARTITION BY Mes ORDER BY Cobertura ASC) AS RankMes
+    FROM CoberturaPorMes
+)
+SELECT 
+    Mes,
+    NM_EQUIPE AS 'Nome da Equipe',
+    NM_USUARIO AS 'Nome do Usuário',
+    NM_PRODUTO AS 'Nome do Produto',
+    Objetivo,
+    Venda,
+    CAST(Cobertura AS DECIMAL(10, 2)) AS Cobertura
+FROM 
+    RankingPorMes
+WHERE 
+    RankMes = 1
+ORDER BY 
+    Mes, NM_EQUIPE, NM_USUARIO, NM_PRODUTO;
 
 -- 6) Retornar a lista "Nome do usuário", "Unidades de Produtos vendidos", "Objetivo", e o percentual do atingimento do objetivo no mês de Maio, para o produto 
 -- Bactrim e ordenado pela performance em ordem decrescente
