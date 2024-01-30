@@ -163,10 +163,6 @@ Este repositório detalha cada passo do processo, desde a importação inicial d
 ## DIAGRAMA RELACIONAL DA BASE DE DADOS
 ![Diagrama](https://github.com/jlfenerich/HSL-Processo-Seletivo/blob/main/docs/master%20-%20HSL_TESTE%20-%20dbo.png?raw=true)
 
-## Perguntas (3_Perguntas.sql)
-
-Aqui está a formatação aprimorada para o trecho fornecido, organizando cada item de forma clara e estruturada:
-
 ---
 
 ## Objetivos do Projeto
