@@ -9,10 +9,6 @@
 │
 ├── docs             		    <- A default Sphinx project; see sphinx-doc.org for details
 │
-├── notebooks                   <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                               the creator's initials, and a short `-` delimited description, e.g.
-│                               `1.0-jqp-initial-data-exploration`.
-│
 ├── references                  <- Data dictionaries, manuals, and all other explanatory materials.
 │
 ├── sql_scripts 
@@ -29,8 +25,7 @@
 │
 ```
 
-# PSEUDO CÓDIGO:
-
+# to do:
 - [x] Configurar um servidor local SQL Server  [completion:: 2024-01-28]
 - [x] Com os scripts fornecidos:  [completion:: 2024-01-28]
 	- [x] Criar DataBase (0_CreateDatabase.sql)  [completion:: 2024-01-28]
@@ -45,6 +40,10 @@
 	- [x] Carregar Base para OBJETIVO  [completion:: 2024-01-29]
 	- [x] Carregar Base para VENDA  [completion:: 2024-01-29]
 	- [ ] Consultas do script 3_Perguntas.sql
+	- [ ] Revisão das respostas/scripts
+	- [ ] Documentação
+	- [ ] Revisão da Documentação
+	- [ ] Enviar para recrutador
 ## SCRIPTS: 
 * 0_CreateDatabase.sql
 * 1_CreateTable.sql
