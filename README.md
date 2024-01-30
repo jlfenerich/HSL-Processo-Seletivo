@@ -161,3 +161,50 @@
 # references
 
 https://drivendata.github.io/cookiecutter-data-science/
+
+
+<details>
+  <summary>ARQUIVOS</summary>
+
+  * BASE_OBJETIVOS.csv
+    * `EAN`
+    * `EQUIPE`
+    * `VENDEDOR`
+    * `JAN`
+    * `FEV`
+    * `MAR`
+    * `ABR`
+    * `MAI`
+    * `JUN`
+    * `JUL`
+    * `AGO`
+    * `SET`
+    * `OUT`
+    * `NOV`
+    * `DEZ`
+  * BASE_VENDAS.csv
+    * `EAN`
+    * `EQUIPE`
+    * `VENDEDOR`
+    * `JAN`
+    * `FEV`
+    * `MAR`
+    * `ABR`
+    * `MAI`
+    * `JUN`
+    * `JUL`
+    * `AGO`
+    * `SET`
+    * `OUT`
+    * `NOV`
+    * `DEZ`
+</details>
+
+<details>
+  <summary>SCRIPTS</summary>
+
+  * 0_CreateDatabase.sql
+  * 1_CreateTable.sql
+  * 2_Insert.sql
+  * 3_Perguntas.sql
+</details>
