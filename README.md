@@ -25,7 +25,7 @@
 │
 ```
 
-# to do:
+# To Do:
 - [x] Configurar um servidor local SQL Server  [completion:: 2024-01-28]
 - [x] Com os scripts fornecidos:  [completion:: 2024-01-28]
 	- [x] Criar DataBase (0_CreateDatabase.sql)  [completion:: 2024-01-28]
@@ -44,6 +44,8 @@
 - [ ] Documentação
 - [ ] Revisão da Documentação
 - [ ] Enviar para recrutador
+
+# Files Stucture
 <details>
   <summary>SCRIPTS</summary>
 
@@ -92,7 +94,7 @@
 
 <details>
   <summary>DATABASE</summary>
-  
+
 * `OBJETIVO`
 	* `CD_VENDA` PRIMARY KEY
 	* `CD_PRODUTO` FOREIGN KEY
@@ -140,7 +142,7 @@
 	* `CD_USUARIO` FOREIGN KEY
 </details>
 
-## DIAGRAMA
+## DIAGRAMA RELACIONAL DA BASE DE DADOS
 ![Diagrama](https://github.com/jlfenerich/HSL-Processo-Seletivo/blob/main/docs/master%20-%20HSL_TESTE%20-%20dbo.png?raw=true)
 
 ## Perguntas (3_Perguntas.sql)
