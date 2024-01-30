@@ -1,4 +1,4 @@
-# Preparação de Dados para Processo Seletivo 
+# Análises Estratégicas em SQL: Importação, Normalização e Análise Avançada
 
 ![MicrosoftSQLServer](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
@@ -44,29 +44,6 @@ O primeiro passo deste projeto envolve a importação criteriosa de dados de arq
 Segue-se a etapa de normalização, onde os dados importados são reestruturados e otimizados. Esta fase é crucial para transformar dados brutos em um conjunto estruturado e coerente, ideal para realizar análises eficientes e precisas. A normalização aborda desde a correção de inconsistências até a melhoria da integridade e performance das consultas SQL.
 
 Este repositório detalha cada passo do processo, desde a importação inicial dos dados até a sua completa normalização, oferecendo insights valiosos sobre práticas efetivas de manipulação de dados em SQL para situações semelhantes.
-
-<details>
-  <summary>To do</summary>
-
-- [x] Configurar um servidor local SQL Server  [completion:: 2024-01-28]
-- [x] Com os scripts fornecidos:  [completion:: 2024-01-28]
-	- [x] Criar DataBase (0_CreateDatabase.sql)  [completion:: 2024-01-28]
-	- [x] Criar Tabelas (1_CreateTable.sql)  [completion:: 2024-01-28]
-	- [x] Inserir Parâmetros (Insert.sql) nas Tabelas  [completion:: 2024-01-28]
-- [x] Carregar .csv nas Tabelas  [completion:: 2024-01-29]
-	- [x] normalizar dos dados  [completion:: 2024-01-29]
-		- [x] mapear dados para normalizar  [completion:: 2024-01-29]
-		- [x] "Pivotar" tabela BASE_Objetivos de Horizontal p/ Vertical  [completion:: 2024-01-29]
-		- [x] "Pivotar" tabela BASE_Vendas de Horizontal p/ Vertical  [completion:: 2024-01-29]
-		- [x] JOIN para normalização para as chaves  [completion:: 2024-01-29]
-	- [x] Carregar Base para OBJETIVO  [completion:: 2024-01-29]
-	- [x] Carregar Base para VENDA  [completion:: 2024-01-29]
-- [ ] Consultas do script 3_Perguntas.sql
-- [ ] Revisão das respostas/scripts
-- [ ] Documentação
-- [ ] Revisão da Documentação
-- [ ] Enviar para recrutador
-</details>
 
 # Files Stucture
 <details>
@@ -225,3 +202,29 @@ Este repositório detalha cada passo do processo, desde a importação inicial d
 # references
 
 https://drivendata.github.io/cookiecutter-data-science/
+
+
+
+
+<details>
+  <summary>To do</summary>
+
+- [x] Configurar um servidor local SQL Server  [completion:: 2024-01-28]
+- [x] Com os scripts fornecidos:  [completion:: 2024-01-28]
+	- [x] Criar DataBase (0_CreateDatabase.sql)  [completion:: 2024-01-28]
+	- [x] Criar Tabelas (1_CreateTable.sql)  [completion:: 2024-01-28]
+	- [x] Inserir Parâmetros (Insert.sql) nas Tabelas  [completion:: 2024-01-28]
+- [x] Carregar .csv nas Tabelas  [completion:: 2024-01-29]
+	- [x] normalizar dos dados  [completion:: 2024-01-29]
+		- [x] mapear dados para normalizar  [completion:: 2024-01-29]
+		- [x] "Pivotar" tabela BASE_Objetivos de Horizontal p/ Vertical  [completion:: 2024-01-29]
+		- [x] "Pivotar" tabela BASE_Vendas de Horizontal p/ Vertical  [completion:: 2024-01-29]
+		- [x] JOIN para normalização para as chaves  [completion:: 2024-01-29]
+	- [x] Carregar Base para OBJETIVO  [completion:: 2024-01-29]
+	- [x] Carregar Base para VENDA  [completion:: 2024-01-29]
+- [ ] Consultas do script 3_Perguntas.sql
+- [ ] Revisão das respostas/scripts
+- [ ] Documentação
+- [ ] Revisão da Documentação
+- [ ] Enviar para recrutador
+</details>
