@@ -39,11 +39,11 @@
 		- [x] JOIN para normalização para as chaves  [completion:: 2024-01-29]
 	- [x] Carregar Base para OBJETIVO  [completion:: 2024-01-29]
 	- [x] Carregar Base para VENDA  [completion:: 2024-01-29]
-	- [ ] Consultas do script 3_Perguntas.sql
-	- [ ] Revisão das respostas/scripts
-	- [ ] Documentação
-	- [ ] Revisão da Documentação
-	- [ ] Enviar para recrutador
+- [ ] Consultas do script 3_Perguntas.sql
+- [ ] Revisão das respostas/scripts
+- [ ] Documentação
+- [ ] Revisão da Documentação
+- [ ] Enviar para recrutador
 ## SCRIPTS: 
 * 0_CreateDatabase.sql
 * 1_CreateTable.sql
