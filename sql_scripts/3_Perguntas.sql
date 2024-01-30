@@ -54,11 +54,79 @@ FROM
     JOIN VendasPorProduto VP ON MV.CD_EQUIPE = VP.CD_EQUIPE AND MV.MaxVendas = VP.QtdVendida
     JOIN EQUIPE E ON VP.CD_EQUIPE = E.CD_EQUIPE
     JOIN PRODUTO P ON VP.CD_PRODUTO = P.CD_PRODUTO;
+
 -- 3) Retornar o "Nome da equipe", "Nome do produto", "Nome do usuário", "Qtd de Produtos vendidos" e o "Ranking" considerando quantidade de produtos vendidos apenas 
 -- no 1º semestre (Janeiro a Junho)
+-- Assumindo que a tabela de vendas se chama VENDAS e tem colunas para data da venda (DT_VENDA), código do produto (CD_PRODUTO), código do usuário (CD_USUARIO) e quantidade vendida (QTD_VENDIDA)
+USE HSL_TESTE;
+
+WITH VendasSemestre AS (
+    SELECT 
+        EP.CD_EQUIPE,
+        V.CD_PRODUTO,
+        V.CD_USUARIO,
+        COUNT(V.NR_QUANTIDADE) AS QtdVendida,
+        RANK() OVER (PARTITION BY EP.CD_EQUIPE ORDER BY COUNT(V.NR_QUANTIDADE) DESC) AS Ranking
+    FROM 
+        VENDA V
+        JOIN EQUIPE_PRODUTO EP ON V.CD_PRODUTO = EP.CD_PRODUTO
+    WHERE 
+        V.DT_PERIODO >= '2023-01-01' AND V.DT_PERIODO <= '2023-06-30'
+    GROUP BY 
+        EP.CD_EQUIPE, V.CD_PRODUTO, V.CD_USUARIO
+)
+SELECT 
+    E.Nm_EQUIPE AS 'Nome da Equipe',
+    P.Nm_PRODUTO AS 'Nome do Produto',
+    U.Nm_USUARIO AS 'Nome do Usuário',
+    VS.QtdVendida AS 'Qtd de Produtos Vendidos',
+    VS.Ranking
+FROM 
+    VendasSemestre VS
+    JOIN EQUIPE E ON VS.CD_EQUIPE = E.CD_EQUIPE
+    JOIN PRODUTO P ON VS.CD_PRODUTO = P.CD_PRODUTO
+    JOIN USUARIO U ON VS.CD_USUARIO = U.CD_USUARIO
+ORDER BY 
+    VS.CD_EQUIPE, VS.Ranking;
 
 -- 4) Retornar "Nome da equipe", "Nome do usuário", "Nome do produto", "Nome do Trimestre" (por exemplo "1º Trimestre") e a "média dos objetivos por trimestre" 
 -- ao retornar as informações ordenar por "Nome da equipe", "Nome do usuário", "Nome do produto" e "média dos objetivos por trimestre" (decrescente)
+USE HSL_TESTE;
+
+WITH ObjetivosPorTrimestre AS (
+    SELECT
+        EP.CD_EQUIPE,
+        O.CD_USUARIO,
+        O.CD_PRODUTO,
+        CASE 
+            WHEN MONTH(O.DT_PERIODO) IN (1, 2, 3) THEN '1º Trimestre'
+            WHEN MONTH(O.DT_PERIODO) IN (4, 5, 6) THEN '2º Trimestre'
+            WHEN MONTH(O.DT_PERIODO) IN (7, 8, 9) THEN '3º Trimestre'
+            WHEN MONTH(O.DT_PERIODO) IN (10, 11, 12) THEN '4º Trimestre'
+        END AS NomeTrimestre,
+        AVG(O.NR_QUANTIDADE) AS MediaObjetivos
+    FROM
+        OBJETIVO O
+        JOIN EQUIPE_PRODUTO EP ON O.CD_PRODUTO = EP.CD_PRODUTO
+    GROUP BY
+        EP.CD_EQUIPE, O.CD_USUARIO, O.CD_PRODUTO, MONTH(O.DT_PERIODO)
+)
+SELECT
+    E.NM_EQUIPE AS 'Nome da Equipe',
+    U.NM_USUARIO AS 'Nome do Usuário',
+    P.NM_PRODUTO AS 'Nome do Produto',
+    OT.NomeTrimestre,
+    OT.MediaObjetivos
+FROM
+    ObjetivosPorTrimestre OT
+    JOIN EQUIPE E ON OT.CD_EQUIPE = E.CD_EQUIPE
+    JOIN USUARIO U ON OT.CD_USUARIO = U.CD_USUARIO
+    JOIN PRODUTO P ON OT.CD_PRODUTO = P.CD_PRODUTO
+ORDER BY
+    E.NM_EQUIPE,
+    U.NM_USUARIO,
+    P.NM_PRODUTO,
+    OT.MediaObjetivos DESC;
 
 -- 5) Como foi possível verificar até aqui, temos informações de Objetivo e Vendas para cada Equipe, Usuário e Produto e agora precisamos retornar as informações abaixo:
 -- "Mês", "Nome da equipe", "Nome do usuário", "Nome do produto", "Objetivo", "Venda" e a "Cobertura de atingimento da venda (que é a venda/objetivo)", porém gostaríamos de 
