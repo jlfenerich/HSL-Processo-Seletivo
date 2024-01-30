@@ -1,4 +1,6 @@
-# Repo Structure
+# Preparação de Dados para Processo Seletivo 
+
+## Repo Structure
 
 ```nohighlight
 ├── LICENSE
@@ -24,6 +26,19 @@
 │
 │
 ```
+## Contexto do Projeto
+
+Este repositório foi criado com o objetivo duplo de compartilhar as soluções desenvolvidas para os desafios propostos em um processo seletivo, bem como documentar o processo técnico de preparação dos dados. Ele serve como uma vitrine tanto das habilidades analíticas quanto das competências técnicas em manipulação de dados.
+
+## Importação de CSV para SQL Server
+
+O primeiro passo deste projeto envolve a importação criteriosa de dados de arquivos CSV para tabelas temporárias no SQL Server. Este processo é fundamental para assegurar que os dados necessários para as análises estejam disponíveis no banco de dados, prontos para serem consultados e manipulados conforme as necessidades das questões do processo seletivo.
+
+## Normalização e Estruturação de Dados
+
+Segue-se a etapa de normalização, onde os dados importados são reestruturados e otimizados. Esta fase é crucial para transformar dados brutos em um conjunto estruturado e coerente, ideal para realizar análises eficientes e precisas. A normalização aborda desde a correção de inconsistências até a melhoria da integridade e performance das consultas SQL.
+
+Este repositório detalha cada passo do processo, desde a importação inicial dos dados até a sua completa normalização, oferecendo insights valiosos sobre práticas efetivas de manipulação de dados em SQL para situações semelhantes.
 
 <details>
   <summary>To do</summary>
