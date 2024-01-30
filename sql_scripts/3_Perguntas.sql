@@ -355,8 +355,31 @@ ORDER BY
 -- 10) Quem foi o melhor (em quantidade vendida) vendedor de Paracetamol no último trimestre do ano, considerando
 -- todos os times da empresa ALPHALAB?
 
+USE HSL_TESTE;
+
+SELECT TOP 1
+    U.Nm_USUARIO AS [Nome do Vendedor],
+    SUM(V.NR_QUANTIDADE) AS [Quantidade Vendida]
+FROM 
+    VENDA V
+    JOIN PRODUTO P ON V.CD_PRODUTO = P.CD_PRODUTO
+    JOIN USUARIO U ON V.CD_USUARIO = U.CD_USUARIO
+    JOIN EQUIPE_USUARIO EU ON U.CD_USUARIO = EU.CD_USUARIO
+    JOIN EQUIPE E ON EU.CD_EQUIPE = E.CD_EQUIPE
+    JOIN EMPRESA EM ON E.CD_EMPRESA = EM.CD_EMPRESA
+WHERE 
+    P.Nm_PRODUTO = 'Paracetamol'
+    AND EM.Nm_EMPRESA = 'ALPHALAB'
+    AND V.DT_PERIODO >= DATEADD(MONTH, -3, GETDATE()) -- Últimos 3 meses
+GROUP BY 
+    U.Nm_USUARIO
+ORDER BY 
+    [Quantidade Vendida] DESC;
+
 -- 11) Quem foi o pior vendedor (em quantidade vendida) de Nimesulida no primeiro trimestre do ano, considerando
 -- todos os times da empresa Labmais?
+
+
 
 -- 12) Quem foi o melhor (cobertura) vendedor de Meloxicam neste ano, considerando
 -- todos os times da empresa ALPHALAB?
