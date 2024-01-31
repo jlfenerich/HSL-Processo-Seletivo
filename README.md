@@ -8,26 +8,25 @@
 
 ```nohighlight
 ├── LICENSE
-├── README.md          			<- The top-level README for developers using this project.
+├── README.md          			          <- The top-level README for developers using this project.
 ├── data
-│   ├── BASE_OBJETIVOS.csv      <- Data from third party sources.
-│   └── BASE_VENDAS.csv         <- Intermediate data that has been transformed. 
+│   ├── BASE_OBJETIVOS.csv                <- Data from third party sources.
+│   └── BASE_VENDAS.csv                   <- Intermediate data that has been transformed. 
 │
-├── docs             		    <- A default Sphinx project; see sphinx-doc.org for details
+├── docs             		              <- A default Sphinx project; see sphinx-doc.org for details
 │
-├── references                  <- Data dictionaries, manuals, and all other explanatory materials.
 │
 ├── sql_scripts 
 │   ├── 0_CreateDatabase.sql    <- Generated analysis as HTML, PDF, LaTeX, etc.
 │   ├── 1_CreateTable.sql    
 │   ├── 2_Insert.sql    
 │   ├── 3_Perguntas.sql
-│   ├── InsertCSVtoTempTABLE.sql
-│   └── TempObjetivos-CD.sql         <- Generated graphics and figures to be used in reporting
-│
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
+│   ├── LOAD_OBJETIVO.sql            <-
+│   ├── LOAD_VENDA.sql   
+│   ├── Normalizacao_CreateTempTABLES.sql
+│   ├── Normalizacao_InsertCSVtoTempTABLE.sql
+│   ├── Normalizacao_TempObjetivos-CD.sql
+│   └── Normalizacao_TempVendas-CD.sql         <- Generated graphics and figures to be used in reporting
 │
 ```
 ## Contexto do Projeto
@@ -197,10 +196,6 @@ Este repositório detalha cada passo do processo, desde a importação inicial d
 12. **Melhor Vendedor de Meloxicam do Ano**:
     - **Objetivo**: Identificar o "Nome do usuário" que foi o melhor (cobertura) vendedor de Meloxicam neste ano.
     - **Empresa**: Considerando todos os times da empresa ALPHALAB.
-
-# references
-
-https://drivendata.github.io/cookiecutter-data-science/
 
 
 <details>
