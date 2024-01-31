@@ -26,7 +26,7 @@
 │   ├── Normalizacao_CreateTempTABLES.sql
 │   ├── Normalizacao_InsertCSVtoTempTABLE.sql
 │   ├── Normalizacao_TempObjetivos-CD.sql
-│   └── Normalizacao_TempVendas-CD.sql          <- Generated graphics and figures to be used in reporting
+│   └── Normalizacao_TempVendas-CD.sql           <- Generated graphics and figures to be used in reporting
 │
 ```
 ## Contexto do Projeto
@@ -214,7 +214,7 @@ Este repositório detalha cada passo do processo, desde a importação inicial d
 		- [x] JOIN para normalização para as chaves  [completion:: 2024-01-29]
 	- [x] Carregar Base para OBJETIVO  [completion:: 2024-01-29]
 	- [x] Carregar Base para VENDA  [completion:: 2024-01-29]
-- [ ] Consultas do script 3_Perguntas.sql
+- [x] Consultas do script 3_Perguntas.sql  [completion:: 2024-01-30]
 - [ ] Revisão das respostas/scripts
 - [x] Documentação  [completion:: 2024-01-30]
 - [ ] Revisão da Documentação
