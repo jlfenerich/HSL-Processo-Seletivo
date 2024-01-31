@@ -226,5 +226,5 @@ Os scripts dessa etapa estão disponíveis na pasta `sql_script\normalization`.
 	- [x] Documentação da instalação do SQL Server  [completion:: 2024-01-31]
 - [x] Revisão da Documentação  [completion:: 2024-01-31]
 - [x] Revisar Estrutura do Repositório  [completion:: 2024-01-31]
-- [ ] Enviar para recrutador
+- [x] Enviar para recrutador  [completion:: 2024-01-31]
 </details>
