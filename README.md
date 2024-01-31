@@ -221,7 +221,8 @@ https://drivendata.github.io/cookiecutter-data-science/
 	- [x] Carregar Base para VENDA  [completion:: 2024-01-29]
 - [ ] Consultas do script 3_Perguntas.sql
 - [ ] Revisão das respostas/scripts
-- [ ] Documentação
+- [x] Documentação  [completion:: 2024-01-30]
 - [ ] Revisão da Documentação
+- [ ] Revisar Estrutura do Repositório
 - [ ] Enviar para recrutador
 </details>
