@@ -8,25 +8,25 @@
 
 ```nohighlight
 ├── LICENSE
-├── README.md          			          <- The top-level README for developers using this project.
+├── README.md          			                <- The top-level README for developers using this project.
 ├── data
-│   ├── BASE_OBJETIVOS.csv                <- Data from third party sources.
-│   └── BASE_VENDAS.csv                   <- Intermediate data that has been transformed. 
+│   ├── BASE_OBJETIVOS.csv                      <- Data from third party sources.
+│   └── BASE_VENDAS.csv                         <- Intermediate data that has been transformed. 
 │
-├── docs             		              <- A default Sphinx project; see sphinx-doc.org for details
+├── docs             		                    <- A default Sphinx project; see sphinx-doc.org for details
 │
 │
 ├── sql_scripts 
-│   ├── 0_CreateDatabase.sql    <- Generated analysis as HTML, PDF, LaTeX, etc.
+│   ├── 0_CreateDatabase.sql                    <- Generated analysis as HTML, PDF, LaTeX, etc.
 │   ├── 1_CreateTable.sql    
 │   ├── 2_Insert.sql    
 │   ├── 3_Perguntas.sql
-│   ├── LOAD_OBJETIVO.sql            <-
+│   ├── LOAD_OBJETIVO.sql                       <-
 │   ├── LOAD_VENDA.sql   
 │   ├── Normalizacao_CreateTempTABLES.sql
 │   ├── Normalizacao_InsertCSVtoTempTABLE.sql
 │   ├── Normalizacao_TempObjetivos-CD.sql
-│   └── Normalizacao_TempVendas-CD.sql         <- Generated graphics and figures to be used in reporting
+│   └── Normalizacao_TempVendas-CD.sql          <- Generated graphics and figures to be used in reporting
 │
 ```
 ## Contexto do Projeto
