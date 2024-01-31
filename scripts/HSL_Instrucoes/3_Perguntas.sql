@@ -3,6 +3,7 @@ GO
 
 -- 1) Retornar as informações de "Nome da empresa", "Nome da equipe", "Nome do usuário" e "Qtd de Produtos" associados ao usuário em sua respectiva equipe, 
 -- filtrando apenas os produtos com peso maior que 10% e ordenando as informações por "Equipe" e "Usuário".
+
 USE HSL_TESTE
 SELECT 
     E.NM_EMPRESA AS 'Nome da Empresa',
@@ -23,7 +24,10 @@ GROUP BY
 ORDER BY 
     T.NM_EQUIPE, U.NM_USUARIO;
 
+
+
 -- 2) Retornar o "Nome da equipe" e "Nome do produto" e a "Qtd de Produtos vendidos", porém apenas dos produtos mais vendidos em cada uma das equipes
+
 USE HSL_TESTE;
 
 WITH VendasPorProduto AS (
@@ -55,9 +59,12 @@ FROM
     JOIN EQUIPE E ON VP.CD_EQUIPE = E.CD_EQUIPE
     JOIN PRODUTO P ON VP.CD_PRODUTO = P.CD_PRODUTO;
 
+
+
 -- 3) Retornar o "Nome da equipe", "Nome do produto", "Nome do usuário", "Qtd de Produtos vendidos" e o "Ranking" considerando quantidade de produtos vendidos apenas 
 -- no 1º semestre (Janeiro a Junho)
 -- Assumindo que a tabela de vendas se chama VENDAS e tem colunas para data da venda (DT_VENDA), código do produto (CD_PRODUTO), código do usuário (CD_USUARIO) e quantidade vendida (QTD_VENDIDA)
+
 USE HSL_TESTE;
 
 WITH VendasSemestre AS (
@@ -89,8 +96,11 @@ FROM
 ORDER BY 
     VS.CD_EQUIPE, VS.Ranking;
 
+
+
 -- 4) Retornar "Nome da equipe", "Nome do usuário", "Nome do produto", "Nome do Trimestre" (por exemplo "1º Trimestre") e a "média dos objetivos por trimestre" 
 -- ao retornar as informações ordenar por "Nome da equipe", "Nome do usuário", "Nome do produto" e "média dos objetivos por trimestre" (decrescente)
+
 USE HSL_TESTE;
 
 WITH ObjetivosPorTrimestre AS (
@@ -128,9 +138,12 @@ ORDER BY
     P.NM_PRODUTO,
     OT.MediaObjetivos DESC;
 
+
+
 -- 5) Como foi possível verificar até aqui, temos informações de Objetivo e Vendas para cada Equipe, Usuário e Produto e agora precisamos retornar as informações abaixo:
 -- "Mês", "Nome da equipe", "Nome do usuário", "Nome do produto", "Objetivo", "Venda" e a "Cobertura de atingimento da venda (que é a venda/objetivo)", porém gostaríamos de 
 -- retornar somente os menores atingimentos de cobertura para cada um dos meses do ano.
+
 USE HSL_TESTE;
 
 WITH CoberturaPorMes AS (
@@ -178,8 +191,10 @@ WHERE
 ORDER BY 
     Mes, NM_EQUIPE, NM_USUARIO, NM_PRODUTO;
 
+
 -- 6) Retornar a lista "Nome do usuário", "Unidades de Produtos vendidos", "Objetivo", e o percentual do atingimento do objetivo no mês de Maio, para o produto 
 -- Bactrim e ordenado pela performance em ordem decrescente
+
 USE HSL_TESTE;
 
 SELECT 
@@ -204,8 +219,10 @@ GROUP BY
 ORDER BY 
     'Percentual de Atingimento do Objetivo' DESC;
 
+
 -- 7) Retornar a relação dos produtos, a quantidade vendida de cada um deles e sua representatividade dentro do total de vendas para a 
 -- usuária "Yasmin", ordenada pela representatividade decrescente
+
 USE HSL_TESTE;
 
 WITH TotalVendasYasmin AS (
@@ -239,8 +256,12 @@ FROM
     CROSS JOIN TotalVendasYasmin TV
 ORDER BY 
     'Representatividade (%)' DESC;
+
+
+
 -- 8) Retornar "Nome do usuário", "Nome do produto", a quantidade vendida no segundo trimestre, a quantidade vendida no terceiro trimestre e o crescimento do segundo para o 
 -- terceiro trimestre em percentual, apenas daqueles com o Maior e o Menor crescimento
+
 USE HSL_TESTE;
 
 WITH VendasPorTrimestre AS (
@@ -357,7 +378,7 @@ ORDER BY
 
 USE HSL_TESTE;
 
-SELECT TOP 1
+SELECT TOP 4
     U.Nm_USUARIO AS [Nome do Vendedor],
     SUM(V.NR_QUANTIDADE) AS [Quantidade Vendida]
 FROM 
@@ -370,7 +391,7 @@ FROM
 WHERE 
     P.Nm_PRODUTO = 'Paracetamol'
     AND EM.Nm_EMPRESA = 'ALPHALAB'
-    AND V.DT_PERIODO >= DATEADD(MONTH, -3, GETDATE()) -- Últimos 3 meses
+    AND V.DT_PERIODO BETWEEN '2023-10-01' AND '2023-12-31'
 GROUP BY 
     U.Nm_USUARIO
 ORDER BY 
@@ -379,9 +400,54 @@ ORDER BY
 -- 11) Quem foi o pior vendedor (em quantidade vendida) de Nimesulida no primeiro trimestre do ano, considerando
 -- todos os times da empresa Labmais?
 
+USE HSL_TESTE;
+
+SELECT TOP 1
+    U.Nm_USUARIO AS [Nome do Vendedor],
+    SUM(V.NR_QUANTIDADE) AS [Quantidade Vendida]
+FROM 
+    VENDA V
+    JOIN PRODUTO P ON V.CD_PRODUTO = P.CD_PRODUTO
+    JOIN USUARIO U ON V.CD_USUARIO = U.CD_USUARIO
+    JOIN EQUIPE_USUARIO EU ON U.CD_USUARIO = EU.CD_USUARIO
+    JOIN EQUIPE E ON EU.CD_EQUIPE = E.CD_EQUIPE
+    JOIN EMPRESA EM ON E.CD_EMPRESA = EM.CD_EMPRESA
+WHERE 
+    P.Nm_PRODUTO = 'Nimesulida'
+    AND EM.Nm_EMPRESA = 'Labmais'
+    AND YEAR(V.DT_PERIODO) = 2023  -- Especificando o ano de 2023
+    AND MONTH(V.DT_PERIODO) BETWEEN 1 AND 3 -- Primeiro trimestre
+GROUP BY 
+    U.NM_USUARIO
+ORDER BY 
+    [Quantidade Vendida] ASC; -- Procurando pelo menor vendedor
+
 
 
 -- 12) Quem foi o melhor (cobertura) vendedor de Meloxicam neste ano, considerando
 -- todos os times da empresa ALPHALAB?
 
+USE HSL_TESTE;
+
+SELECT TOP 1
+    U.Nm_USUARIO AS [Nome do Vendedor],
+    SUM(V.NR_QUANTIDADE) AS [Quantidade Vendida],
+    SUM(O.NR_QUANTIDADE) AS [Objetivo de Vendas Total],
+    (CAST(SUM(V.NR_QUANTIDADE) AS FLOAT) / SUM(O.NR_QUANTIDADE)) * 100 AS [Percentual de Cobertura]
+FROM 
+    VENDA V
+    INNER JOIN PRODUTO P ON V.CD_PRODUTO = P.CD_PRODUTO
+    INNER JOIN USUARIO U ON V.CD_USUARIO = U.CD_USUARIO
+    INNER JOIN EQUIPE_USUARIO EU ON U.CD_USUARIO = EU.CD_USUARIO
+    INNER JOIN EQUIPE E ON EU.CD_EQUIPE = E.CD_EQUIPE
+    INNER JOIN EMPRESA EM ON E.CD_EMPRESA = EM.CD_EMPRESA
+    LEFT JOIN OBJETIVO O ON V.CD_PRODUTO = O.CD_PRODUTO AND V.CD_USUARIO = O.CD_USUARIO AND YEAR(O.DT_PERIODO) = 2023
+WHERE 
+    P.Nm_PRODUTO = 'Meloxicam'
+    AND EM.Nm_EMPRESA = 'ALPHALAB'
+    AND YEAR(V.DT_PERIODO) = 2023
+GROUP BY 
+    U.Nm_USUARIO
+ORDER BY 
+    [Percentual de Cobertura] DESC;
 
