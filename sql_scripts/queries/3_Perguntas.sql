@@ -34,7 +34,7 @@ WITH VendasPorProduto AS (
     SELECT 
         EP.CD_EQUIPE,
         EP.CD_PRODUTO,
-        COUNT(*) AS QtdVendida
+        SUM(V.NR_QUANTIDADE) AS QtdVendida
     FROM 
         VENDA V
         JOIN EQUIPE_PRODUTO EP ON V.CD_PRODUTO = EP.CD_PRODUTO
@@ -48,16 +48,25 @@ WITH VendasPorProduto AS (
         VendasPorProduto
     GROUP BY 
         CD_EQUIPE
+), ProdutosMaisVendidosPorEquipe AS (
+    SELECT 
+        VP.CD_EQUIPE,
+        VP.CD_PRODUTO,
+        VP.QtdVendida
+    FROM 
+        VendasPorProduto VP
+        INNER JOIN MaxVendasPorEquipe MV ON VP.CD_EQUIPE = MV.CD_EQUIPE AND VP.QtdVendida = MV.MaxVendas
 )
 SELECT 
     E.Nm_EQUIPE AS 'Nome da Equipe',
     P.Nm_PRODUTO AS 'Nome do Produto',
-    VP.QtdVendida AS 'Qtd de Produtos Vendidos'
+    PMV.QtdVendida AS 'Qtd de Produtos Vendidos'
 FROM 
-    MaxVendasPorEquipe MV
-    JOIN VendasPorProduto VP ON MV.CD_EQUIPE = VP.CD_EQUIPE AND MV.MaxVendas = VP.QtdVendida
-    JOIN EQUIPE E ON VP.CD_EQUIPE = E.CD_EQUIPE
-    JOIN PRODUTO P ON VP.CD_PRODUTO = P.CD_PRODUTO;
+    ProdutosMaisVendidosPorEquipe PMV
+    JOIN EQUIPE E ON PMV.CD_EQUIPE = E.CD_EQUIPE
+    JOIN PRODUTO P ON PMV.CD_PRODUTO = P.CD_PRODUTO
+ORDER BY 
+    'Nome da Equipe', 'Qtd de Produtos Vendidos' DESC;
 
 
 
@@ -69,32 +78,40 @@ USE HSL_TESTE;
 
 WITH VendasSemestre AS (
     SELECT 
-        EP.CD_EQUIPE,
+        V.CD_EQUIPE, -- Assumindo que esta coluna existe diretamente na tabela VENDA
         V.CD_PRODUTO,
         V.CD_USUARIO,
-        COUNT(V.NR_QUANTIDADE) AS QtdVendida,
-        RANK() OVER (PARTITION BY EP.CD_EQUIPE ORDER BY COUNT(V.NR_QUANTIDADE) DESC) AS Ranking
+        SUM(V.NR_QUANTIDADE) AS QtdVendida
     FROM 
         VENDA V
-        JOIN EQUIPE_PRODUTO EP ON V.CD_PRODUTO = EP.CD_PRODUTO
     WHERE 
         V.DT_PERIODO >= '2023-01-01' AND V.DT_PERIODO <= '2023-06-30'
     GROUP BY 
-        EP.CD_EQUIPE, V.CD_PRODUTO, V.CD_USUARIO
+        V.CD_EQUIPE, V.CD_PRODUTO, V.CD_USUARIO
+),
+RankedVendas AS (
+    SELECT
+        CD_EQUIPE,
+        CD_PRODUTO,
+        CD_USUARIO,
+        QtdVendida,
+        RANK() OVER (ORDER BY QtdVendida DESC) AS Ranking
+    FROM 
+        VendasSemestre
 )
 SELECT 
     E.NM_EQUIPE AS 'Nome da Equipe',
     P.NM_PRODUTO AS 'Nome do Produto',
     U.NM_USUARIO AS 'Nome do Usuário',
-    VS.QtdVendida AS 'Qtd de Produtos Vendidos',
-    VS.Ranking
+    RV.QtdVendida AS 'Qtd de Produtos Vendidos',
+    RV.Ranking
 FROM 
-    VendasSemestre VS
-    JOIN EQUIPE E ON VS.CD_EQUIPE = E.CD_EQUIPE
-    JOIN PRODUTO P ON VS.CD_PRODUTO = P.CD_PRODUTO
-    JOIN USUARIO U ON VS.CD_USUARIO = U.CD_USUARIO
+    RankedVendas RV
+    JOIN EQUIPE E ON RV.CD_EQUIPE = E.CD_EQUIPE
+    JOIN PRODUTO P ON RV.CD_PRODUTO = P.CD_PRODUTO
+    JOIN USUARIO U ON RV.CD_USUARIO = U.CD_USUARIO
 ORDER BY 
-    VS.CD_EQUIPE, VS.Ranking;
+    RV.Ranking;
 
 
 
