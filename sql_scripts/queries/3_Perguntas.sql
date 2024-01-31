@@ -163,7 +163,7 @@ ORDER BY
 
 USE HSL_TESTE;
 
-WITH CoberturaPorMes AS (
+WITH CoberturaCalculada AS (
     SELECT
         MONTH(V.DT_PERIODO) AS Mes,
         E.NM_EQUIPE,
@@ -171,42 +171,32 @@ WITH CoberturaPorMes AS (
         P.NM_PRODUTO,
         SUM(O.NR_QUANTIDADE) AS Objetivo,
         SUM(V.NR_QUANTIDADE) AS Venda,
-        CASE 
-            WHEN SUM(O.NR_QUANTIDADE) = 0 THEN 0
-            ELSE CAST(SUM(V.NR_QUANTIDADE) AS FLOAT) / SUM(O.NR_QUANTIDADE)
-        END AS Cobertura
-    FROM
-        VENDA V
-        JOIN OBJETIVO O ON V.CD_PRODUTO = O.CD_PRODUTO AND V.CD_USUARIO = O.CD_USUARIO AND MONTH(V.DT_PERIODO) = MONTH(O.DT_PERIODO)
-        JOIN EQUIPE_PRODUTO EP ON V.CD_PRODUTO = EP.CD_PRODUTO
-        JOIN EQUIPE E ON EP.CD_EQUIPE = E.CD_EQUIPE
-        JOIN PRODUTO P ON V.CD_PRODUTO = P.CD_PRODUTO
-        JOIN USUARIO U ON V.CD_USUARIO = U.CD_USUARIO
-    GROUP BY
-        MONTH(V.DT_PERIODO),
-        E.NM_EQUIPE,
-        U.NM_USUARIO,
-        P.NM_PRODUTO
+        CAST(CASE WHEN SUM(O.NR_QUANTIDADE) = 0 THEN 0 ELSE SUM(V.NR_QUANTIDADE) * 1.0 / SUM(O.NR_QUANTIDADE) END AS DECIMAL(10, 2)) AS Cobertura
+    FROM VENDA V
+    JOIN OBJETIVO O ON V.CD_PRODUTO = O.CD_PRODUTO AND V.CD_USUARIO = O.CD_USUARIO
+    JOIN EQUIPE_PRODUTO EP ON V.CD_PRODUTO = EP.CD_PRODUTO
+    JOIN EQUIPE E ON EP.CD_EQUIPE = E.CD_EQUIPE
+    JOIN PRODUTO P ON V.CD_PRODUTO = P.CD_PRODUTO
+    JOIN USUARIO U ON V.CD_USUARIO = U.CD_USUARIO
+    WHERE V.DT_PERIODO BETWEEN '2023-01-01' AND '2023-12-31'
+    GROUP BY MONTH(V.DT_PERIODO), E.NM_EQUIPE, U.NM_USUARIO, P.NM_PRODUTO
 ),
-RankingPorMes AS (
+RankedCoberturas AS (
     SELECT *,
-        RANK() OVER (PARTITION BY Mes ORDER BY Cobertura ASC) AS RankMes
-    FROM CoberturaPorMes
+           ROW_NUMBER() OVER (PARTITION BY Mes ORDER BY Cobertura ASC, Objetivo DESC) AS Rnk -- Ordena por cobertura ascendente e objetivo descendente para desempate
+    FROM CoberturaCalculada
 )
-SELECT 
+SELECT
     Mes,
-    NM_EQUIPE AS 'Nome da Equipe',
-    NM_USUARIO AS 'Nome do Usuário',
-    NM_PRODUTO AS 'Nome do Produto',
+    NM_EQUIPE AS "Nome da Equipe",
+    NM_USUARIO AS "Nome do Usuário",
+    NM_PRODUTO AS "Nome do Produto",
     Objetivo,
     Venda,
-    CAST(Cobertura AS DECIMAL(10, 2)) AS Cobertura
-FROM 
-    RankingPorMes
-WHERE 
-    RankMes = 1
-ORDER BY 
-    Mes, NM_EQUIPE, NM_USUARIO, NM_PRODUTO;
+    Cobertura
+FROM RankedCoberturas
+WHERE Rnk = 1
+ORDER BY Mes;
 
 
 -- 6) Retornar a lista "Nome do usuário", "Unidades de Produtos vendidos", "Objetivo", e o percentual do atingimento do objetivo no mês de Maio, para o produto 
@@ -395,7 +385,7 @@ ORDER BY
 
 USE HSL_TESTE;
 
-SELECT TOP 4
+SELECT TOP 1
     U.Nm_USUARIO AS [Nome do Vendedor],
     SUM(V.NR_QUANTIDADE) AS [Quantidade Vendida]
 FROM 
